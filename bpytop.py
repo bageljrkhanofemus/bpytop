@@ -413,7 +413,7 @@ class Config:
 						"swap_disk", "show_disks", "use_fstab", "net_download", "net_upload", "net_auto", "net_color_fixed", "show_init", "theme_background",
 						"net_sync", "show_battery", "tree_depth", "cpu_sensor", "show_coretemp", "proc_update_mult", "shown_boxes", "net_iface", "only_physical",
 						"truecolor", "io_mode", "io_graph_combined", "io_graph_speeds", "show_io_stat", "cpu_graph_upper", "cpu_graph_lower", "cpu_invert_lower",
-						"cpu_single_graph", "show_uptime", "temp_scale", "show_cpu_freq"]
+						"cpu_single_graph", "show_uptime", "temp_scale", "show_cpu_freq", "enable_gpu"]
 	conf_dict: Dict[str, Union[str, int, bool]] = {}
 	color_theme: str = "Default"
 	theme_background: bool = True
@@ -463,7 +463,7 @@ class Config:
 	show_battery: bool = True
 	show_init: bool = False
 	log_level: str = "WARNING"
-
+	enable_gpu: bool = False
 	warnings: List[str] = []
 	info: List[str] = []
 
@@ -4611,6 +4611,9 @@ class Menu:
 					'Show memory as bytes in process list.',
 					' ',
 					'True or False.'],
+			},
+			"gpu": {
+				"enable_gpu": ["enable gpu"],
 			}
 		}
 
@@ -5086,6 +5089,11 @@ class Init:
 
 
 #? Functions ------------------------------------------------------------------------------------->
+def get_gpu() -> int:
+	if SYSTEM == "Linux":
+		return 0
+	else:
+		return 0
 
 def get_cpu_name() -> str:
 	'''Fetch a suitable CPU identifier from the CPU model name string'''
